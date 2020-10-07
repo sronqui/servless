@@ -12,7 +12,7 @@ export default function Home()
   {
     console.log('useEffect Antes')
 
-    axios.get('https://api.github.com/users/sronqui')
+    axios.get('/api/list')
       .then((l) =>
       {
         console.log('list', l);

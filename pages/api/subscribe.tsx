@@ -1,7 +1,8 @@
 import { NowRequest, NowResponse } from '@vercel/node'
 import connectToDatabase from '../../data/dbConection';
 
-export default async (request: NowRequest, response: NowResponse) => {
+export default async (request: NowRequest, response: NowResponse) =>
+{
   const { email } = request.body;
 
   const db = await connectToDatabase(process.env.MONGODB_URI);
