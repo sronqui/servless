@@ -11,6 +11,7 @@ export default function Home()
   useEffect(() =>
   {
     console.log('useEffect Antes')
+
     axios.get('/api/list', {})
       .then((l) =>
       {
