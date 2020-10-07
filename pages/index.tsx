@@ -11,10 +11,17 @@ export default function Home()
   useEffect(() =>
   {
     console.log('useEffect Antes')
-    axios.get('/api/list', {}).then(l => { console.log('list', l);
-     setList(l.data.list) });
-  },
-    []);
+    axios.get('/api/list', {})
+      .then((l) =>
+      {
+        console.log('list', l);
+        setList(l.data.list)
+      })
+      .catch((err) =>
+      {
+        console.error("ocorreu um erro" + err);
+      });
+  }, []);
 
   function handleSignUpToNewsletter(event: FormEvent)
   {
