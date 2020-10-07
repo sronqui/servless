@@ -3,7 +3,7 @@ import connectToDatabase from '../../data/dbConection';
 
 export default async (request: NowRequest, response: NowResponse) =>
 {
-  const { id } = request.body;
+  // const { id } = request.body;
 
   const db = await connectToDatabase(process.env.MONGODB_URI);
 
