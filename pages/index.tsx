@@ -19,7 +19,7 @@ export default function Home()
       })
       .catch((err) =>
       {
-        console.error("ocorreu um erro" + err);
+        console.error("ocorreu um erro " + err);
       });
   }, []);
 
