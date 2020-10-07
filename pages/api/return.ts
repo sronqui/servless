@@ -9,7 +9,8 @@ export default async (request: NowRequest, response: NowResponse) =>
 
   const collection = db.collection('subscribers');
 
-  const list = await collection.find()
+  var list = await collection.find()
+console.log(list);
 
   return response.json({ list });
 }
