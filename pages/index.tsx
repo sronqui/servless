@@ -10,7 +10,8 @@ export default function Home()
 
   useEffect(() =>
   {
-    axios.get('/api/return').then(list => setList(list.data));
+    axios.get('/api/return').then(list => { console.log(list);
+     setList(list.data.list) });
   },
     []);
 
