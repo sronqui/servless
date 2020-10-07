@@ -11,7 +11,7 @@ export default function Home()
   useEffect(() =>
   {
     console.log('useEffect Antes')
-    axios.get('/api/return').then(list => { console.log('return', list);
+    axios.get('/api/return', {}).then(list => { console.log('return', list);
      setList(list.data.list) });
   },
     []);
