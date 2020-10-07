@@ -17,5 +17,5 @@ export default async (request: NowRequest, response: NowResponse) =>
   console.log('depois');
   console.log(list);
 
-  return response.json({ list });
+  return response.json(list);
 }
