@@ -2,16 +2,13 @@ import { NowRequest, NowResponse } from '@vercel/node'
 import connectToDatabase from '../../data/dbConection';
 
 export default async (request: NowRequest, response: NowResponse) => {
-  const { email } = request.body;
+  // const { id } = request.body;
 
   const db = await connectToDatabase(process.env.MONGODB_URI);
 
   const collection = db.collection('subscribers');
 
-  await collection.insertOne({
-    email,
-    subscribedAt: new Date(),
-  })
+  const list = await collection.find()
 
-  return response.status(201).json({ ok: true });
+  return response.json({ list });
 }

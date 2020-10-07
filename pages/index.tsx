@@ -1,16 +1,26 @@
-import { useState, FormEvent } from 'react';
-import { Flex, Image, Button, Text } from '@chakra-ui/core'
+import React, { useState, FormEvent, useEffect } from 'react';
+import { Flex, Image, Button, Text, List, ListItem, ListIcon } from '@chakra-ui/core'
 import Input from '../components/Input'
 import axios from 'axios';
 
-export default function Home() {
+export default function Home()
+{
   const [email, setEmail] = useState('');
+  const [list, setList] = useState([]);
 
-  function handleSignUpToNewsletter(event: FormEvent) {
+  useEffect(() =>
+  {
+    axios.get('/api/return').then(list => setList(list.data));
+  },
+    []);
+
+  function handleSignUpToNewsletter(event: FormEvent)
+  {
     event.preventDefault();
 
     axios.post('/api/subscribe', { email });
   }
+
 
   return (
     <Flex
@@ -28,7 +38,7 @@ export default function Home() {
         alignItems="stretch"
         padding={8}
         marginTop={4}
-        width="100%" 
+        width="100%"
         maxW="400px"
       >
         <Image marginBottom={8} src="/rocketseat.svg" alt="Rocketseat" />
@@ -54,6 +64,19 @@ export default function Home() {
         >
           INSCREVER
         </Button>
+
+        <List spacing={3} >
+          {list.map(c =>
+          {
+            return (
+              <ListItem key={c.id}>
+                <ListIcon icon="check-circle" color="green.500" />
+                {c.email}
+              </ListItem>
+            )
+          }
+          )}
+        </List>
       </Flex>
     </Flex>
   )
