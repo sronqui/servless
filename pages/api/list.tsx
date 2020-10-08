@@ -13,7 +13,7 @@ export default async (request: NowRequest, response: NowResponse) =>
   const db = await connectToDatabase(process.env.MONGODB_URI);
 
   console.log('2');
-  // const collection = db.collection('subscribers');
+  const collection = db.collection('subscribers');
 
   // console.log('3');
   // let list = await collection.find();
