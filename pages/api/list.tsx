@@ -4,8 +4,8 @@ import connectToDatabase from '../../data/dbConection';
 export default async (request: NowRequest, response: NowResponse) =>
 {
   console.log('inicio');
-  const body = request.body;
-  console.log('body', body);
+  // const body = request.body;
+  console.log('request', request);
   console.log('1');
   const db = await connectToDatabase(process.env.MONGODB_URI);
 
@@ -17,5 +17,5 @@ export default async (request: NowRequest, response: NowResponse) =>
   console.log('depois');
   console.log(list);
 
-  return response.json(list);
+  return response.json({ list });
 }
