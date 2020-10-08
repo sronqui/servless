@@ -76,7 +76,7 @@ export default function Home()
         </Button>
 
         <List spacing={3} >
-          {list.map(c =>
+          {/* {list.map(c =>
           {
             return (
               <ListItem key={c.id}>
@@ -85,7 +85,7 @@ export default function Home()
               </ListItem>
             )
           }
-          )}
+          )} */}
         </List>
       </Flex>
     </Flex>
