@@ -15,7 +15,7 @@ export default async (request: NowRequest, response: NowResponse) =>
   const collection = db.collection('subscribers');
 
   console.log('3');
-  let list = await collection.find();
+  let list = await collection.find({});
   // // let list = await collection.find({ subscribedAt:{ $gt: new Date('2020-10-09'), $lt: new Date('2020-10-09') } });
   console.log('4');
 
