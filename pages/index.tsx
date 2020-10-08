@@ -12,7 +12,7 @@ export default function Home()
   {
     console.log('useEffect Antes')
 
-    axios.get('/api/list')
+    axios.get('/api/list', { params: { startDate: new Date(), endDate: new Date() } })
       .then((l) =>
       {
         console.log('list', l);
