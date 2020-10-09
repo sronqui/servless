@@ -26,7 +26,7 @@ export default function Home()
 
   function handleQuery()
   {
-    axios.get('/api/list', { params: { startDate: new Date(), endDate: new Date() } })
+    axios.get('/api/list')
       .then(res =>
       {
         const map = {

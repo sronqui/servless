@@ -14,9 +14,9 @@ export default async (request: NowRequest, response: NowResponse) =>
   const collection = db.collection('data');
 
   await collection.insertOne({
-    temp: Number.parseFloat(temp.replace(/\./gi, '').replace(/,/gi, '.')),
-    humid: Number.parseFloat(humid.replace(/\./gi, '').replace(/,/gi, '.')),
-    press: Number.parseFloat(press.replace(/\./gi, '').replace(/,/gi, '.')),
+    temp: Number.parseFloat(temp.replace(/,/gi, '.')),
+    humid: Number.parseFloat(humid.replace(/,/gi, '.')),
+    press: Number.parseFloat(press.replace(/,/gi, '.')),
     addDate: new Date()
   })
 
