@@ -26,7 +26,7 @@ export default function Home()
 
   function handleQuery()
   {
-    axios.get('/api/list')
+    axios.get('/api/list', { params: { startDate: new Date(), endDate: new Date() } })
       .then(res =>
       {
         const map = {
@@ -56,8 +56,9 @@ export default function Home()
 
         res.data.map(d =>
         {
-          // map.labels.push(d.addDate.replace(/(\d*)-(\d*)-(\d*).*/, '$3-$2-$1'));
-          map.labels.push(d.addDate);
+          map.labels.push(`${d.addDate.substring(0,10).split('-').reverse().join('/')} ${d.addDate.substring(11,16)}`);
+          // map.labels.push(d.addDate.replace(/(\d*)-(\d*)-(\d*).*/, '$3/$2/$1'));
+          // map.labels.push(d.addDate);
           map.datasets[0].data.push(d.temp);
         });
 
