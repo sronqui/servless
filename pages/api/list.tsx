@@ -19,13 +19,13 @@ export default async (request: NowRequest, response: NowResponse) =>
 
   console.log('collection :1', collection);
 
-  const list = collection.find();
+  // const list = collection.find();
   // const list = data.sort((a, b) => a.id - b.id);
 
-  console.log('list :1', list);
+  console.log('list :1', collection);
 
   // const list = await collection.aggregate([{ $group: { _id: "$addDate", tem_average: { $avg: "$temp" } } }])
 
-  return response.json(list);
+  return response.json(collection);
 }
 
