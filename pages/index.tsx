@@ -195,7 +195,7 @@ export default function Home()
 
       <Flex
         as="nav"
-        bg="purple.500"
+        bg="gray.700"
         align="center"
         justify="space-between"
         wrap="wrap"
@@ -289,7 +289,7 @@ export default function Home()
           padding={8}
           marginTop={4}
           width={[
-            "100%",
+            "95%",
             "80%",
             "60%",
             "40%",
@@ -384,6 +384,7 @@ export default function Home()
 
 
       <Flex
+        bg="gray.700"
         w="100%"
         px={5}
         py={4}
