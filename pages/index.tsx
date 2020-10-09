@@ -11,9 +11,12 @@ export default function Home()
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
 
-  const [temp, setTemp] = useState();
-  const [humid, setHumid] = useState();
-  const [press, setPress] = useState();
+  const [show, setShow] = React.useState(false);
+  const handleToggle = () => setShow(!show);
+
+  const [temp, setTemp] = useState(0);
+  const [humid, setHumid] = useState(0);
+  const [press, setPress] = useState(0);
 
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
@@ -32,20 +35,20 @@ export default function Home()
             label: 'temp',
             fill: false,
             lineTension: 0.1,
-            backgroundColor: 'rgba(75,192,192,0.4)',
-            borderColor: 'rgba(75,192,192,1)',
+            backgroundColor: 'rgba(130, 87, 229,0.4)',
+            borderColor: 'rgba(130, 87, 229,1)',
             borderCapStyle: 'butt',
             borderDash: [],
             borderDashOffset: 0.0,
             borderJoinStyle: 'miter',
-            pointBorderColor: 'rgba(75,192,192,1)',
+            pointBorderColor: 'rgba(130, 87, 229,1)',
             pointBackgroundColor: '#fff',
             pointBorderWidth: 1,
             pointHoverRadius: 5,
-            pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+            pointHoverBackgroundColor: 'rgba(130, 87, 229,1)',
             pointHoverBorderColor: 'rgba(220,220,220,1)',
             pointHoverBorderWidth: 2,
-            pointRadius: 1,
+            pointRadius: 3,
             pointHitRadius: 10,
             data: []
           }]
@@ -53,6 +56,7 @@ export default function Home()
 
         res.data.map(d =>
         {
+          // map.labels.push(d.addDate.replace(/(\d*)-(\d*)-(\d*).*/, '$3-$2-$1'));
           map.labels.push(d.addDate);
           map.datasets[0].data.push(d.temp);
         });
@@ -60,8 +64,8 @@ export default function Home()
         setList(map);
 
         setTemp(res.data[res.data.length - 1].temp);
-        setHumid(res.data[res.data.length-1].humid);
-        setPress(res.data[res.data.length-1].press);
+        setHumid(res.data[res.data.length - 1].humid);
+        setPress(res.data[res.data.length - 1].press);
       })
       .catch((err) =>
       {
@@ -189,6 +193,74 @@ export default function Home()
       </Drawer>
 
       <Flex
+        as="nav"
+        bg="purple.500"
+        align="center"
+        justify="space-between"
+        wrap="wrap"
+        padding="1.5rem"
+        color="white"
+      >
+        <Flex
+          align="center"
+          mr={5}>
+          <Heading
+            as="h1"
+            size="lg"
+            letterSpacing={"-.1rem"}
+          >
+            Temp
+          </Heading>
+        </Flex>
+
+        <Box
+          display={{ base: "block", md: "none" }}
+          onClick={handleToggle}
+        >
+          <svg
+            fill="white"
+            width="12px"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <title>Menu</title>
+            <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+          </svg>
+        </Box>
+
+        <Box
+          display={{ sm: show ? "block" : "none", md: "flex" }}
+          width={{ sm: "full", md: "auto" }}
+          alignItems="center"
+          flexGrow={1}
+        >
+          <Text
+            mt={{ base: 4, md: 0 }}
+            mr={6} display="block"
+          >
+            Docs
+          </Text>
+          <Text
+            mt={{ base: 4, md: 0 }}
+            mr={6} display="block"
+          >
+            Examples
+          </Text>
+        </Box>
+        <Box
+          display={{ sm: show ? "block" : "none", md: "block" }}
+          mt={{ base: 4, md: 0 }}
+        >
+          <Button
+            bg="transparent"
+            border="1px"
+          >
+            Create account
+          </Button>
+        </Box>
+      </Flex>
+
+      <Flex
         as="main"
         height="100%"
         justifyContent="center"
@@ -201,28 +273,13 @@ export default function Home()
           alignItems="stretch"
           padding={8}
           marginTop={4}
-          width="100%"
-          maxW="40%"
+          width={[
+            "100%",
+            "80%",
+            "60%",
+            "40%",
+          ]}
         >
-          <Flex
-            as="div"
-            justifyContent="center"
-            alignItems="center"
-          >
-            <Button
-              ref={btnRef}
-              type="button"
-              backgroundColor="purple.500"
-              height="50px"
-              borderRadius="sm"
-              margin={6}
-              width="100%"
-              _hover={{ backgroundColor: 'purple.600' }}
-              onClick={onOpen}
-            >
-              Action
-              </Button>
-          </Flex>
           {/* {list.map((l) =>
           {
             return (
@@ -243,21 +300,106 @@ export default function Home()
             )
           })} */}
 
-          <Box m={5} p={5} shadow="md" borderLeft="2px solid" borderWidth="1px">
-            <Heading fontSize="xl">Temp</Heading>
-            <Text mt={4}>{temp}</Text>
+          <Box
+            m={5}
+            p={5}
+            shadow="md"
+            borderLeft="2px solid"
+            borderWidth="1px">
+            <Heading
+              fontSize="xl">
+              Temp
+              </Heading>
+            <Text
+              mt={4}
+            >
+              {temp}
+            </Text>
           </Box>
-          <Box m={5} p={5} shadow="md" borderLeft="2px solid" borderWidth="1px">
-            <Heading fontSize="xl">Press</Heading>
-            <Text mt={4}>{press}</Text>
+          <Box
+            m={5}
+            p={5}
+            shadow="md"
+            borderLeft="2px solid"
+            borderWidth="1px">
+            <Heading
+              fontSize="xl">
+              Press
+              </Heading>
+            <Text
+              mt={4}
+            >
+              {press}
+            </Text>
           </Box>
-          <Box m={5} p={5} shadow="md" borderLeft="2px solid" borderWidth="1px">
-            <Heading fontSize="xl">Humid</Heading>
-            <Text mt={4}>{humid}</Text>
+          <Box
+            m={5}
+            p={5}
+            shadow="md"
+            borderLeft="2px solid"
+            borderWidth="1px">
+            <Heading
+              fontSize="xl"
+            >Humid
+            </Heading>
+            <Text
+              mt={4}
+            >
+              {humid}
+            </Text>
           </Box>
           < Line
             data={list}
+            options={{
+
+              legend: {
+                display: false
+              },
+            }}
           />
+
+          <Flex
+            as="div"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Button
+              ref={btnRef}
+              type="button"
+              backgroundColor="purple.500"
+              height="50px"
+              borderRadius="sm"
+              margin={6}
+              width="100%"
+              _hover={{ backgroundColor: 'purple.600' }}
+              onClick={onOpen}
+            >
+              Action
+              </Button>
+          </Flex>
+        </Flex>
+      </Flex>
+
+
+      <Flex
+        w="100%"
+        px={5}
+        py={4}
+        justifyContent="center"
+        alignItems="center"
+        borderTop="1px solid"
+        marginTop='20px'
+      >
+        <Flex
+          flexDirection="row"
+          justifyContent="center"
+          alignItems="center">
+          <Text
+            pl={3}
+            color="white"
+          >
+            Copyright © 2020
+          </Text>
         </Flex>
       </Flex>
     </>

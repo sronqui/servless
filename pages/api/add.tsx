@@ -14,9 +14,9 @@ export default async (request: NowRequest, response: NowResponse) =>
   const collection = db.collection('data');
 
   await collection.insertOne({
-    temp,
-    humid,
-    press,
+    temp: +temp,
+    humid: +humid,
+    press: +press,
     addDate: new Date()
   })
 
