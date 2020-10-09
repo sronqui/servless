@@ -13,11 +13,13 @@ export default async (request: NowRequest, response: NowResponse) =>
   const db = await connectToDatabase(process.env.MONGODB_URI);
   const collection = db.collection('data');
 
-  const list = await collection.aggregate([
-    { $match: { temp: { $gt: 25 } } },
-    { $group: { _id: "$addDate", temp_average: { $avg: "$temp" } } }]);
+  // const list = await collection.aggregate([
+  //   { $match: { temp: { $gt: 25 } } },
+  //   { $group: { _id: "$addDate", temp_average: { $avg: "$temp" } } }]);
 
-  // const list = await collection.find();
+  console.log('collection', collection);
+
+  const list = await collection.find();
 
   // const list = await collection.aggregate([{ $group: { _id: "$addDate", tem_average: { $avg: "$temp" } } }])
 
