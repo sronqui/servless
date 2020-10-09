@@ -12,7 +12,7 @@ export default async (request: NowRequest, response: NowResponse) =>
 
   const db = await connectToDatabase(process.env.MONGODB_URI);
   const collection = db.collection('data');
-  let list = await collection.find({});
+  let list = await collection.find();
 
   // let list = await collection.aggregate([{ $group: { _id: "$addDate", tem_average: { $avg: "$temp" } } }])
 

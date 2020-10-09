@@ -236,28 +236,20 @@ export default function Home()
         >
           <Text
             mt={{ base: 4, md: 0 }}
-            mr={6} display="block"
+            mr={6}
+            display="block"
           >
             Docs
           </Text>
           <Text
             mt={{ base: 4, md: 0 }}
-            mr={6} display="block"
+            mr={6}
+            display="block"
           >
             Examples
           </Text>
         </Box>
-        <Box
-          display={{ sm: show ? "block" : "none", md: "block" }}
-          mt={{ base: 4, md: 0 }}
-        >
-          <Button
-            bg="transparent"
-            border="1px"
-          >
-            Create account
-          </Button>
-        </Box>
+
       </Flex>
 
       <Flex
