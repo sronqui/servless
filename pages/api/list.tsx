@@ -18,7 +18,8 @@ export default async (request: NowRequest, response: NowResponse) =>
     // { $group: { _id: "$addDate", temp_average: { $avg: "$temp" } } }
   ]);
 
-  console.log('collection', collection);
+  console.log('collection :1', collection);
+  console.log('list :1', list);
 
   // const list = await collection.find();
 
