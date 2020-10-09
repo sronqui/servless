@@ -18,15 +18,15 @@ export default function Home()
   const [humid, setHumid] = useState(0);
   const [press, setPress] = useState(0);
 
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  // const [startDate, setStartDate] = useState(new Date());
+  // const [endDate, setEndDate] = useState(new Date());
   const [list, setList] = useState({});
 
   useEffect(() => handleQuery(), []);
 
   function handleQuery()
   {
-    axios.get('/api/list', { params: { startDate: startDate, endDate: endDate } })
+    axios.get('/api/list', { params: { startDate: new Date(), endDate: new Date() } })
       .then(res =>
       {
         const map = {
@@ -99,6 +99,48 @@ export default function Home()
               justifyContent="center"
               flexDirection="column"
             >
+
+              <Flex
+                as="div"
+                backgroundColor="gray.700"
+                borderRadius="md"
+                flexDir="column"
+                alignItems="stretch"
+                padding={8}
+                marginTop={4}
+                width="100%"
+                maxW="100%"
+              >
+                {/* <Input
+                  placeholder="startDate"
+                  marginTop={2}
+                  // value={startDate}
+                  type="date"
+                  onChange={e => setStartDate(e.target.value)}
+                />
+
+                <Input
+                  placeholder="endDate"
+                  marginTop={2}
+                  // value={endDate}
+                  type="date"
+                  onChange={e => setEndDate(e.target.value)}
+                /> */}
+
+                <Button
+                  type="button"
+                  backgroundColor="purple.500"
+                  height="50px"
+                  borderRadius="sm"
+                  marginTop={6}
+                  width="100%"
+                  _hover={{ backgroundColor: 'purple.600' }}
+                  onClick={() => handleQuery()}
+                >
+                  Buscar
+              </Button>
+              </Flex>
+
               <Flex
                 as="form"
                 onSubmit={handleSignUpToNewsletter}
@@ -141,47 +183,6 @@ export default function Home()
                   Incluir
                 </Button>
               </Flex>
-
-              <Flex
-                as="div"
-                backgroundColor="gray.700"
-                borderRadius="md"
-                flexDir="column"
-                alignItems="stretch"
-                padding={8}
-                marginTop={4}
-                width="100%"
-                maxW="100%"
-              >
-                <Input
-                  placeholder="startDate"
-                  marginTop={2}
-                  // value={startDate}
-                  type="date"
-                  onChange={e => setStartDate(e.target.value)}
-                />
-
-                <Input
-                  placeholder="endDate"
-                  marginTop={2}
-                  // value={endDate}
-                  type="date"
-                  onChange={e => setEndDate(e.target.value)}
-                />
-
-                <Button
-                  type="button"
-                  backgroundColor="purple.500"
-                  height="50px"
-                  borderRadius="sm"
-                  marginTop={6}
-                  width="100%"
-                  _hover={{ backgroundColor: 'purple.600' }}
-                  onClick={() => handleQuery()}
-                >
-                  Buscar
-              </Button>
-              </Flex>
             </Flex>
           </DrawerBody>
           <DrawerFooter>
@@ -213,7 +214,7 @@ export default function Home()
           </Heading>
         </Flex>
 
-        <Box
+        {/* <Box
           display={{ base: "block", md: "none" }}
           onClick={handleToggle}
         >
@@ -226,9 +227,9 @@ export default function Home()
             <title>Menu</title>
             <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
           </svg>
-        </Box>
+        </Box> */}
 
-        <Box
+        {/* <Box
           display={{ sm: show ? "block" : "none", md: "flex" }}
           width={{ sm: "full", md: "auto" }}
           alignItems="center"
@@ -248,6 +249,28 @@ export default function Home()
           >
             Examples
           </Text>
+        </Box> */}
+
+        <Box>
+          <Flex
+            as="div"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Button
+              ref={btnRef}
+              type="button"
+              // backgroundColor="purple.500"
+              height="50px"
+              borderRadius="sm"
+              // margin={6}
+              width="100%"
+              // _hover={{ backgroundColor: 'purple.600' }}
+              onClick={onOpen}
+            >
+              Action
+              </Button>
+          </Flex>
         </Box>
 
       </Flex>
@@ -340,35 +363,22 @@ export default function Home()
               {humid}
             </Text>
           </Box>
-          < Line
-            data={list}
-            options={{
+          <Box
+            m={5}
+            p={5}
+            shadow="md"
+            borderLeft="2px solid"
+            borderWidth="1px">
+            < Line
+              data={list}
+              options={{
 
-              legend: {
-                display: false
-              },
-            }}
-          />
-
-          <Flex
-            as="div"
-            justifyContent="center"
-            alignItems="center"
-          >
-            <Button
-              ref={btnRef}
-              type="button"
-              backgroundColor="purple.500"
-              height="50px"
-              borderRadius="sm"
-              margin={6}
-              width="100%"
-              _hover={{ backgroundColor: 'purple.600' }}
-              onClick={onOpen}
-            >
-              Action
-              </Button>
-          </Flex>
+                legend: {
+                  display: false
+                },
+              }}
+            />
+          </Box>
         </Flex>
       </Flex>
 
