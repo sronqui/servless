@@ -8,12 +8,11 @@ export default async (request: NowRequest, response: NowResponse) =>
 {
   const params = request.query;
 
-  let list = data.sort((a, b) => a.id - b.id);
+  // let list = data.sort((a, b) => a.id - b.id);
 
-  // const db = await connectToDatabase(process.env.MONGODB_URI);
-  // const collection = db.collection('data');
-  // let list = await collection.find({ addDate: { $gte: params.startDate, $lte: params.endDate } });
-
+  const db = await connectToDatabase(process.env.MONGODB_URI);
+  const collection = db.collection('data');
+  let list = await collection.find({});
 
   // let list = await collection.aggregate([{ $group: { _id: "$addDate", tem_average: { $avg: "$temp" } } }])
 
