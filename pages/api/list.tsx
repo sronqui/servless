@@ -18,12 +18,13 @@ export default async (request: NowRequest, response: NowResponse) =>
 
   console.log('collection : ', collection);
 
-  let qtd;
-  collection.count().then(res => qtd = res);
-  console.log('qtd : ', qtd);
+  let list;
+  collection.find().toArray(function (err, result)
+  {
+    list = result
+  });
 
-  // const list = collection.find();
-  const list = data.sort((a, b) => a.id - b.id);
+  // const list = data.sort((a, b) => a.id - b.id);
 
   console.log('list : ', collection);
 
