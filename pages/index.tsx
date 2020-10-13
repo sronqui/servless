@@ -18,21 +18,72 @@ export default function Home()
   const [humid, setHumid] = useState(0);
   const [press, setPress] = useState(0);
 
-  // const [startDate, setStartDate] = useState(new Date());
-  // const [endDate, setEndDate] = useState(new Date());
-  const [list, setList] = useState({});
+  const [listTemp, setListTemp] = useState({});
+  const [listHumid, setListHumid] = useState({});
+  const [listPress, setListPress] = useState({});
 
   useEffect(() => handleQuery(), []);
 
   function handleQuery()
   {
     axios.get('/api/list', { params: { startDate: new Date(), endDate: new Date() } })
+      // axios.get('https://api.github.com/users/sronqui')
       .then(res =>
       {
-        const map = {
+        const listTemp = {
           labels: [],
           datasets: [{
-            label: 'temp',
+            label: 'Temp',
+            fill: false,
+            lineTension: 0.1,
+            backgroundColor: 'rgba(130, 87, 229,0.4)',
+            borderColor: 'rgba(130, 87, 229,1)',
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: 'rgba(130, 87, 229,1)',
+            pointBackgroundColor: '#fff',
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: 'rgba(130, 87, 229,1)',
+            pointHoverBorderColor: 'rgba(220,220,220,1)',
+            pointHoverBorderWidth: 2,
+            pointRadius: 3,
+            pointHitRadius: 10,
+            data: []
+          }]
+        };
+
+        const listHumid = {
+          labels: [],
+          datasets: [{
+            label: 'Humid',
+            fill: false,
+            lineTension: 0.1,
+            backgroundColor: 'rgba(130, 87, 229,0.4)',
+            borderColor: 'rgba(130, 87, 229,1)',
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: 'rgba(130, 87, 229,1)',
+            pointBackgroundColor: '#fff',
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: 'rgba(130, 87, 229,1)',
+            pointHoverBorderColor: 'rgba(220,220,220,1)',
+            pointHoverBorderWidth: 2,
+            pointRadius: 3,
+            pointHitRadius: 10,
+            data: []
+          }]
+        };
+
+        const listPress = {
+          labels: [],
+          datasets: [{
+            label: 'Press',
             fill: false,
             lineTension: 0.1,
             backgroundColor: 'rgba(130, 87, 229,0.4)',
@@ -56,17 +107,25 @@ export default function Home()
 
         res.data.map(d =>
         {
-          map.labels.push(`${d.addDate.substring(0,10).split('-').reverse().join('/')} ${d.addDate.substring(11,16)}`);
           // map.labels.push(d.addDate.replace(/(\d*)-(\d*)-(\d*).*/, '$3/$2/$1'));
           // map.labels.push(d.addDate);
-          map.datasets[0].data.push(d.temp);
+
+          listTemp.labels.push(`${d.addDate.substring(0, 10).split('-').reverse().join('/')} ${d.addDate.substring(11, 16)}`);
+          listHumid.labels.push(`${d.addDate.substring(0, 10).split('-').reverse().join('/')} ${d.addDate.substring(11, 16)}`);
+          listPress.labels.push(`${d.addDate.substring(0, 10).split('-').reverse().join('/')} ${d.addDate.substring(11, 16)}`);
+
+          listTemp.datasets[0].data.push(d.temp);
+          listHumid.datasets[0].data.push(d.humid);
+          listPress.datasets[0].data.push(d.press);
         });
 
-        setList(map);
+        setTemp(res.data[0].temp);
+        setHumid(res.data[0].humid);
+        setPress(res.data[0].press);
 
-        setTemp(res.data[res.data.length - 1].temp);
-        setHumid(res.data[res.data.length - 1].humid);
-        setPress(res.data[res.data.length - 1].press);
+        setListTemp(listTemp);
+        setListHumid(listHumid);
+        setListPress(listPress);
       })
       .catch((err) =>
       {
@@ -112,22 +171,6 @@ export default function Home()
                 width="100%"
                 maxW="100%"
               >
-                {/* <Input
-                  placeholder="startDate"
-                  marginTop={2}
-                  // value={startDate}
-                  type="date"
-                  onChange={e => setStartDate(e.target.value)}
-                />
-
-                <Input
-                  placeholder="endDate"
-                  marginTop={2}
-                  // value={endDate}
-                  type="date"
-                  onChange={e => setEndDate(e.target.value)}
-                /> */}
-
                 <Button
                   type="button"
                   backgroundColor="purple.500"
@@ -214,44 +257,6 @@ export default function Home()
             Temp
           </Heading>
         </Flex>
-
-        {/* <Box
-          display={{ base: "block", md: "none" }}
-          onClick={handleToggle}
-        >
-          <svg
-            fill="white"
-            width="12px"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <title>Menu</title>
-            <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
-          </svg>
-        </Box> */}
-
-        {/* <Box
-          display={{ sm: show ? "block" : "none", md: "flex" }}
-          width={{ sm: "full", md: "auto" }}
-          alignItems="center"
-          flexGrow={1}
-        >
-          <Text
-            mt={{ base: 4, md: 0 }}
-            mr={6}
-            display="block"
-          >
-            Docs
-          </Text>
-          <Text
-            mt={{ base: 4, md: 0 }}
-            mr={6}
-            display="block"
-          >
-            Examples
-          </Text>
-        </Box> */}
-
         <Box>
           <Flex
             as="div"
@@ -261,12 +266,9 @@ export default function Home()
             <Button
               ref={btnRef}
               type="button"
-              // backgroundColor="purple.500"
               height="50px"
               borderRadius="sm"
-              // margin={6}
               width="100%"
-              // _hover={{ backgroundColor: 'purple.600' }}
               onClick={onOpen}
             >
               Action
@@ -293,96 +295,165 @@ export default function Home()
             "95%",
             "80%",
             "60%",
-            "40%",
+            "50%",
           ]}
         >
-          {/* {list.map((l) =>
-          {
-            return (
-              <>
-                <Box m={5} p={5} shadow="md" borderLeft="2px solid" borderWidth="1px">
-                  <Heading fontSize="xl">Temp</Heading>
-                  <Text mt={4}>{l.temp}</Text>
-                </Box>
-                <Box m={5} p={5} shadow="md" borderLeft="2px solid" borderWidth="1px">
-                  <Heading fontSize="xl">Press</Heading>
-                  <Text mt={4}>{l.press}</Text>
-                </Box>
-                <Box m={5} p={5} shadow="md" borderLeft="2px solid" borderWidth="1px">
-                  <Heading fontSize="xl">Humid</Heading>
-                  <Text mt={4}>{l.humid}</Text>
-                </Box>
-              </>
-            )
-          })} */}
+          <Flex
+            backgroundColor="gray.700"
+            borderRadius="md"
+            flexDir={["column", "column", "row"]}
+            alignItems="stretch"
+            width="full"
+          >
+            <Box
+              width={[
+                "95%",
+                "95%",
+                "20%",
+              ]}
+              m={5}
+              p={5}
+              shadow="md"
+              borderLeft="2px solid"
+              borderWidth="1px">
+              <Heading
+                fontSize="xl">
+                Temp
+              </Heading>
+              <Text
+                mt={4}
+              >
+                {temp}
+              </Text>
+            </Box>
 
-          <Box
-            m={5}
-            p={5}
-            shadow="md"
-            borderLeft="2px solid"
-            borderWidth="1px">
-            <Heading
-              fontSize="xl">
-              Temp
+            <Box
+              width={[
+                "95%",
+                "95%",
+                "80%",
+              ]}
+              m={5}
+              p={5}
+              shadow="md"
+              borderLeft="2px solid"
+              borderWidth="1px">
+              < Line
+                data={listTemp}
+                options={{
+
+                  legend: {
+                    display: false
+                  },
+                }}
+              />
+            </Box>
+          </Flex>
+
+          <Flex
+            backgroundColor="gray.700"
+            borderRadius="md"
+            flexDir={["column", "column", "row"]}
+            alignItems="stretch"
+            width="full"
+          >
+            <Box
+              width={[
+                "95%",
+                "95%",
+                "20%",
+              ]}
+              m={5}
+              p={5}
+              shadow="md"
+              borderLeft="2px solid"
+              borderWidth="1px">
+              <Heading
+                fontSize="xl">
+                Press
               </Heading>
-            <Text
-              mt={4}
-            >
-              {temp}
-            </Text>
-          </Box>
-          <Box
-            m={5}
-            p={5}
-            shadow="md"
-            borderLeft="2px solid"
-            borderWidth="1px">
-            <Heading
-              fontSize="xl">
-              Press
-              </Heading>
-            <Text
-              mt={4}
-            >
-              {press}
-            </Text>
-          </Box>
-          <Box
-            m={5}
-            p={5}
-            shadow="md"
-            borderLeft="2px solid"
-            borderWidth="1px">
-            <Heading
-              fontSize="xl"
-            >Humid
+              <Text
+                mt={4}
+              >
+                {press}
+              </Text>
+            </Box>
+            <Box
+              width={[
+                "95%",
+                "95%",
+                "80%",
+              ]}
+              m={5}
+              p={5}
+              shadow="md"
+              borderLeft="2px solid"
+              borderWidth="1px">
+              < Line
+                data={listPress}
+                options={{
+
+                  legend: {
+                    display: false
+                  },
+                }}
+              />
+            </Box>
+          </Flex>
+
+          <Flex
+            backgroundColor="gray.700"
+            borderRadius="md"
+            flexDir={["column", "column", "row"]}
+            alignItems="stretch"
+            width="full"
+          >
+            <Box
+              width={[
+                "95%",
+                "95%",
+                "20%",
+              ]}
+              m={5}
+              p={5}
+              shadow="md"
+              borderLeft="2px solid"
+              borderWidth="1px">
+              <Heading
+                fontSize="xl"
+              >Humid
             </Heading>
-            <Text
-              mt={4}
-            >
-              {humid}
-            </Text>
-          </Box>
-          <Box
-            m={5}
-            p={5}
-            shadow="md"
-            borderLeft="2px solid"
-            borderWidth="1px">
-            < Line
-              data={list}
-              options={{
+              <Text
+                mt={4}
+              >
+                {humid}
+              </Text>
+            </Box>
+            <Box
+              width={[
+                "95%",
+                "95%",
+                "80%",
+              ]}
+              m={5}
+              p={5}
+              shadow="md"
+              borderLeft="2px solid"
+              borderWidth="1px">
+              < Line
+                data={listHumid}
+                options={{
 
-                legend: {
-                  display: false
-                },
-              }}
-            />
-          </Box>
+                  legend: {
+                    display: false
+                  },
+                }}
+              />
+            </Box>
+          </Flex>
+
         </Flex>
       </Flex>
-
 
       <Flex
         bg="gray.700"
