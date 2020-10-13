@@ -16,12 +16,15 @@ export default async (request: NowRequest, response: NowResponse) =>
   //   // { $group: { _id: "$addDate", temp_average: { $avg: "$temp" } } }
   // ]);
 
-  console.log('collection :1', collection);
+  console.log('collection : ', collection);
+
+  const qtd = collection.count();
+  console.log('qtd : ', qtd);
 
   // const list = collection.find();
   const list = data.sort((a, b) => a.id - b.id);
 
-  console.log('list :1', collection);
+  console.log('list : ', collection);
 
   // const list = await collection.aggregate([{ $group: { _id: "$addDate", tem_average: { $avg: "$temp" } } }])
 
