@@ -18,8 +18,8 @@ export default async (request: NowRequest, response: NowResponse) =>
 
   console.log('collection :1', collection);
 
-  const list = collection.find();
-  // const list = data.sort((a, b) => a.id - b.id);
+  // const list = collection.find();
+  const list = data.sort((a, b) => a.id - b.id);
 
   console.log('list :1', collection);
 
@@ -27,4 +27,3 @@ export default async (request: NowRequest, response: NowResponse) =>
 
   return response.json(list);
 }
-
