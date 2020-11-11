@@ -24,7 +24,7 @@ export default async (request: NowRequest, response: NowResponse) =>
 
   console.log('count : ', count);
 
-  const list = collection.find({ addDate: { $gt: new Date('1950-01-01') } });
+  const list = collection.find({ temp: 1, humid: 1, press: 1, addDate: 1, _id: 0 });
 
   console.log('list : ', list);
 
