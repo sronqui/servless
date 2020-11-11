@@ -30,6 +30,8 @@ export default function Home()
       // axios.get('https://api.github.com/users/sronqui')
       .then(res =>
       {
+        console.log(res);
+
         const listTemp = {
           labels: [],
           datasets: [{
