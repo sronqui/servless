@@ -28,9 +28,9 @@ export default function Home()
   {
     axios.get('/api/list', { params: { startDate: new Date(), endDate: new Date() } })
       // axios.get('https://api.github.com/users/sronqui')
-      .then(res =>
+      .then(response =>
       {
-        console.log(res);
+        console.log(response);
 
         const listTemp = {
           labels: [],
@@ -107,7 +107,7 @@ export default function Home()
           }]
         };
 
-        res.data.map(d =>
+        response.data.map(d =>
         {
           // map.labels.push(d.addDate.replace(/(\d*)-(\d*)-(\d*).*/, '$3/$2/$1'));
           // map.labels.push(d.addDate);
@@ -121,9 +121,9 @@ export default function Home()
           listPress.datasets[0].data.push(d.press);
         });
 
-        setTemp(res.data[0].temp);
-        setHumid(res.data[0].humid);
-        setPress(res.data[0].press);
+        setTemp(response.data[0].temp);
+        setHumid(response.data[0].humid);
+        setPress(response.data[0].press);
 
         setListTemp(listTemp);
         setListHumid(listHumid);
