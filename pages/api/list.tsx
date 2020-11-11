@@ -18,15 +18,12 @@ export default async (request: NowRequest, response: NowResponse) =>
 
   console.log('collection : ', collection);
 
-  let list;
-  collection.find().toArray(function (err, result)
-  {
-    list = result
-  });
+  // const list = collection.find();
+  const list = collection.count();
 
   // const list = data.sort((a, b) => a.id - b.id);
 
-  console.log('list : ', collection);
+  console.log('list : ', list);
 
   // const list = await collection.aggregate([{ $group: { _id: "$addDate", tem_average: { $avg: "$temp" } } }])
 
