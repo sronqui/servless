@@ -18,10 +18,13 @@ export default async (request: NowRequest, response: NowResponse) =>
 
   console.log('collection : ', collection);
 
-  // const list = collection.find();
-  const list = collection.count();
+  const count = await collection.count();
 
   // const list = data.sort((a, b) => a.id - b.id);
+
+  console.log('count : ', count);
+
+  const list = await collection.find();
 
   console.log('list : ', list);
 
