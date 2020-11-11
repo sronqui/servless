@@ -24,9 +24,9 @@ export default async (request: NowRequest, response: NowResponse) =>
 
   console.log('count : ', count);
 
-  const list = 0;// = await collection.find();
+  const list = collection.find({ addDate: { $gt: new Date('1950-01-01') } });
 
-  // console.log('list : ', list);
+  console.log('list : ', list);
 
   // const list = await collection.aggregate([{ $group: { _id: "$addDate", tem_average: { $avg: "$temp" } } }])
 
