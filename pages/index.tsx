@@ -107,19 +107,19 @@ export default function Home()
           }]
         };
 
-        response.data.map(d =>
-        {
-          // map.labels.push(d.addDate.replace(/(\d*)-(\d*)-(\d*).*/, '$3/$2/$1'));
-          // map.labels.push(d.addDate);
+        // response.data.map(d =>
+        // {
+        //   // map.labels.push(d.addDate.replace(/(\d*)-(\d*)-(\d*).*/, '$3/$2/$1'));
+        //   // map.labels.push(d.addDate);
 
-          listTemp.labels.push(`${d.addDate.substring(0, 10).split('-').reverse().join('/')} ${d.addDate.substring(11, 16)}`);
-          listHumid.labels.push(`${d.addDate.substring(0, 10).split('-').reverse().join('/')} ${d.addDate.substring(11, 16)}`);
-          listPress.labels.push(`${d.addDate.substring(0, 10).split('-').reverse().join('/')} ${d.addDate.substring(11, 16)}`);
+        //   listTemp.labels.push(`${d.addDate.substring(0, 10).split('-').reverse().join('/')} ${d.addDate.substring(11, 16)}`);
+        //   listHumid.labels.push(`${d.addDate.substring(0, 10).split('-').reverse().join('/')} ${d.addDate.substring(11, 16)}`);
+        //   listPress.labels.push(`${d.addDate.substring(0, 10).split('-').reverse().join('/')} ${d.addDate.substring(11, 16)}`);
 
-          listTemp.datasets[0].data.push(d.temp);
-          listHumid.datasets[0].data.push(d.humid);
-          listPress.datasets[0].data.push(d.press);
-        });
+        //   listTemp.datasets[0].data.push(d.temp);
+        //   listHumid.datasets[0].data.push(d.humid);
+        //   listPress.datasets[0].data.push(d.press);
+        // });
 
         setTemp(response.data[0].temp);
         setHumid(response.data[0].humid);

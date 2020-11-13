@@ -12,5 +12,7 @@ export default async (request: NowRequest, response: NowResponse) =>
   const collection = db.collection('data');
   const list = collection.find({ temp: 1, humid: 1, press: 1, addDate: 1, _id: 0 });
 
+  console.info(list);
+
   return response.json(list);
 }
