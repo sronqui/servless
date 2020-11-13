@@ -10,7 +10,7 @@ export default async (request: NowRequest, response: NowResponse) =>
 
   const db = await connectToDatabase(process.env.MONGODB_URI);
   const collection = db.collection('data');
-  collection.find({ temp: 1, humid: 1, press: 1, addDate: 1, _id: 0 })
+  collection.find({ _id: 0, temp: 1, humid: 1, press: 1, addDate: 1 })
     .toArray()
     .then(list =>
     {
